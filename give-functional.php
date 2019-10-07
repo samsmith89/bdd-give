@@ -17,7 +17,7 @@
  *
  */
 // this requires and runs everything in init.php
-// require dirname(__FILE__) . 'templates/give-rider-list.php';
+// require dirname(__FILE__) . '/templates/give-rider-list.php';
 require dirname(__FILE__) . '/templates/give-top-team.php';
 require dirname(__FILE__) . '/templates/give-top-rider.php';
 
