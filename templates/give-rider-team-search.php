@@ -2,41 +2,33 @@
 
 function give_rider_list_function($atts)
 {
-    $atts = shortcode_atts(array(
-        'limit' => 10,
-        'order' => 'DESC',
-        'decimals' => false
-    ), $atts, 'give_rider_list');
+
     /**
      *  Display Donation Forms
      */
-    global $paged;
+
+
+    if ($_GET['search_text'] && !empty($_GET['search_text'])) {
+        $text = $_GET['search_text'];
+    }
+
+    if ($_GET['type'] && !empty($_GET['type'])) {
+        $type = $_GET['type'];
+    }
+
+    $our_current_page = get_query_var('paged');
+
     $args = array(
         'post_type'      => 'give_forms',
         'posts_per_page' => 20,
-        'paged'          => $paged,
-        'meta_query' => array(
-            array(
-                'key' => 'is_rider',
-                'value' => true
-            )
-        )
+        'paged'          => $our_current_page,
+        's'              => $text
     );
     $wp_query = new WP_Query($args);
-    if ($wp_query->have_posts()) : ob_start();
-        ?>
-        <form action="/leaderboard-search/" method="get">
-            <input type="text" name="search_text">
-            <label>Type:</label>
-            <select name="type">
-                <option value="">Any</option>
-                <option value="post">Posts</option>
-                <option value="movies">Movies</option>
-                <option value="books">Books</option>
-            </select>
-            <button type="submit" name="">Search</button>
-        </form>
+    if ($wp_query->have_posts()) : ob_start(); ?>
 
+        <h2>Leader Board</h2>
+        <hr />
         <table>
             <th>Rider</th>
             <th>Goal</th>
@@ -62,18 +54,13 @@ function give_rider_list_function($atts)
                                     $id          = get_the_ID();
                                     $goal_amount = give_get_meta($id, '_give_set_goal', true);
                                     $goal_income = give_get_meta($id, '_give_form_earnings', true);
-                                    $team_name   = get_field('team_name');
+
+                                    $value = get_field("team_name");
                                 }
                                 ?>
                     <td class="give-form-team"><?php echo $goal_amount; ?></td>
                     <td class="give-form-team"><?php echo $goal_income; ?></td>
-                    <td class="give-form-team"><?php if (!empty($team_name)) {
-                                                                //team exists
-                                                                $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
-                                                                printf('<a href="%1$s">%2$s</a>', get_permalink($team_form_post), $team_name);
-                                                            } else {
-                                                                //team does not exist
-                                                            } ?></td>
+                    <td class="give-form-team"><?php echo $value; ?></td>
 
 
                     <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
@@ -81,7 +68,7 @@ function give_rider_list_function($atts)
 
             <?php endwhile;
                     wp_reset_postdata(); // end of Query 1
-                    wp_pagenavi();
+                    echo paginate_links();
                     ?>
         </table>
     <?php else :
@@ -90,10 +77,12 @@ function give_rider_list_function($atts)
 
         <h2>Sorry, no donations found.</h2>
 
-<?php endif;
-    $output = ob_get_contents();
-    ob_end_clean();
-    return $output;
-    wp_reset_query();
+    <?php endif;
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+        wp_reset_query(); ?>
+
+<?php
 }
-add_shortcode('give_rider_list', 'give_rider_list_function');
+add_shortcode('give_rider_search', 'give_rider_list_function');

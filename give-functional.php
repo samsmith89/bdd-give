@@ -17,10 +17,11 @@
  *
  */
 // this requires and runs everything in init.php
-// require dirname(__FILE__) . '/templates/give-rider-list.php';
+require dirname(__FILE__) . '/templates/give-rider-list.php';
 require dirname(__FILE__) . '/templates/give-top-team.php';
 require dirname(__FILE__) . '/templates/give-top-rider.php';
 require dirname(__FILE__) . '/templates/give-test-short.php';
+require dirname(__FILE__) . '/templates/give-rider-search.php';
 
 
 // upon activation this creates all the needed pages

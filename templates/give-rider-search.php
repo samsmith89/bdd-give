@@ -1,12 +1,14 @@
 <?php
 
-function give_rider_list_function($atts)
+function give_rider_search_function($text)
 {
-    $atts = shortcode_atts(array(
-        'limit' => 10,
-        'order' => 'DESC',
-        'decimals' => false
-    ), $atts, 'give_rider_list');
+    if ($_GET['search_text'] && !empty($_GET['search_text'])) {
+        $text = $_GET['search_text'];
+    }
+
+    if ($_GET['type'] && !empty($_GET['type'])) {
+        $type = $_GET['type'];
+    }
     /**
      *  Display Donation Forms
      */
@@ -15,6 +17,7 @@ function give_rider_list_function($atts)
         'post_type'      => 'give_forms',
         'posts_per_page' => 20,
         'paged'          => $paged,
+        's'              => $text,
         'meta_query' => array(
             array(
                 'key' => 'is_rider',
@@ -37,6 +40,7 @@ function give_rider_list_function($atts)
             <button type="submit" name="">Search</button>
         </form>
 
+        <a href="/riderlist-shortcode/">Clear Search Results</a>
         <table>
             <th>Rider</th>
             <th>Goal</th>
@@ -88,7 +92,8 @@ function give_rider_list_function($atts)
             //If you don't have donation forms that fit this query
             ?>
 
-        <h2>Sorry, no donations found.</h2>
+        <h2>Sorry, no donation forms found.</h2>
+        <a href="/riderlist-shortcode/">Let's try again</a>
 
 <?php endif;
     $output = ob_get_contents();
@@ -96,4 +101,4 @@ function give_rider_list_function($atts)
     return $output;
     wp_reset_query();
 }
-add_shortcode('give_rider_list', 'give_rider_list_function');
+add_shortcode('give_rider_search', 'give_rider_search_function');

@@ -19,28 +19,23 @@ function give_team_forms_function($atts)
         while ($wp_query->have_posts()) : $wp_query->the_post();
             //Output the goal (if enabled)
             $form_name   = get_the_title();
-            $form_value = get_field('team_name');
-            $inner_args = array(
-                'post_type'         => 'give_forms',
-                'title'        =>  $form_value,
-                'posts_per_page'    => 10,
-                'meta_query' => array(
-                    array(
-                        'key'     => 'is_team',
-                        'value'   => true,
-                        'compare' => '='
-                    )
-                )
-            );
-            $query = new WP_Query($inner_args);
-            while ($query->have_posts()) : $query->the_post();
-                //do something
-                ?>
-                <p><a href="<?php echo the_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></p>
-            <?php
-                        endwhile;
-                        wp_reset_postdata();
-                        ?>
+            $team_name = get_field('team_name');
+
+            if (!empty($team_name)) {
+                //team exists
+                $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
+                printf('<a href="%s">It worked</a>', get_permalink($team_form_post));
+            } else {
+                //team does not exist
+            }
+
+            // var_dump($team_form_post);
+
+            //get the post ID of the Give form of that team name
+            //get the URL of the team associated with that form
+            //and then echo out the row
+
+            ?>
 
             <p class="give-form-team"><?php echo $form_name; ?></p>
 
