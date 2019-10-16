@@ -17,6 +17,7 @@ function give_rider_search_function($text)
         'post_type'      => 'give_forms',
         'posts_per_page' => 20,
         'paged'          => $paged,
+        'order'          => 'ASC',
         's'              => $text,
         'meta_query' => array(
             array(

@@ -54,12 +54,18 @@ function top_give_rider_forms_function($atts)
                                         $goal_amount = give_get_meta($id, '_give_set_goal', true);
                                         $goal_income = give_get_meta($id, '_give_form_earnings', true);
 
-                                        $value = get_field("team_name");
+                                        $team_name = get_field("team_name");
                                     }
                                     ?>
                         <td class="give-form-team"><?php echo $goal_amount; ?></td>
                         <td class="give-form-team"><?php echo $goal_income; ?></td>
-                        <td class="give-form-team"><?php echo $value; ?></td>
+                        <td class="give-form-team"><?php if (!empty($team_name)) {
+                                                                    //team exists
+                                                                    $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
+                                                                    printf('<a href="%1$s">%2$s</a>', get_permalink($team_form_post), $team_name);
+                                                                } else {
+                                                                    //team does not exist
+                                                                } ?></td>
 
 
                         <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>

@@ -10,7 +10,7 @@ function top_give_team_forms_function($atts)
     $args = array(
         'post_type'         => 'give_forms',
         'posts_per_page'    => $atts['limit'],
-        'meta_key'          => '_give_form_earnings',
+        'meta_key'          => 'team_goal',
         'orderby'           => 'meta_value_num',
         'order'             => $atts['order'],
         'meta_query' => array(
@@ -28,7 +28,7 @@ function top_give_team_forms_function($atts)
         <div class="top-donation-forms-list">
 
             <h3>Top Performing Teams</h3>
-            <table>
+            <table id="giveTable">
                 <th>Team</th>
                 <th>Goal</th>
                 <th>Total</th>
@@ -57,15 +57,18 @@ function top_give_team_forms_function($atts)
                                         $value = get_field("team_name");
                                     }
                                     ?>
-                        <td class="give-form-team"><?php echo $goal_amount; ?></td>
-                        <td class="give-form-team"><?php echo $goal_income; ?></td>
+                        <td class="give-form-team">$10,000</td>
+                        <td class="give-form-team"><?php echo get_field("team_goal"); ?>
+                        </td>
                         <td class="give-form-team"><?php echo $value; ?></td>
 
 
                         <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
                     </tr>
 
-                <?php endwhile;
+
+                <?php
+                        endwhile;
                         wp_reset_postdata(); // end of Query 1
                         echo paginate_links();
                         ?>
@@ -80,10 +83,49 @@ function top_give_team_forms_function($atts)
 
         </div>
 
+        <?php
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+            wp_reset_query();
+
+            ?>
+        <!-- <script>
+            function sortTable() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("giveTable");
+                switching = true;
+                /*Make a loop that will continue until
+                no switching has been done:*/
+                while (switching) {
+                    //start by saying: no switching is done:
+                    switching = false;
+                    rows = table.rows;
+                    /*Loop through all table rows (except the
+                    first, which contains table headers):*/
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        //start by saying there should be no switching:
+                        shouldSwitch = false;
+                        /*Get the two elements you want to compare,
+                        one from current row and one from the next:*/
+                        x = rows[i].getElementsByTagName("TD")[0];
+                        y = rows[i + 1].getElementsByTagName("TD")[0];
+                        //check if the two rows should switch place:
+                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        /*If a switch has been marked, make the switch
+                        and mark that a switch has been done:*/
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+        </script> -->
     <?php
-        $output = ob_get_contents();
-        ob_end_clean();
-        return $output;
-        wp_reset_query();
     }
     add_shortcode('top_give_team_forms', 'top_give_team_forms_function');

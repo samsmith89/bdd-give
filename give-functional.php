@@ -22,6 +22,7 @@ require dirname(__FILE__) . '/templates/give-top-team.php';
 require dirname(__FILE__) . '/templates/give-top-rider.php';
 require dirname(__FILE__) . '/templates/give-test-short.php';
 require dirname(__FILE__) . '/templates/give-rider-search.php';
+require dirname(__FILE__) . '/includes/give-functional-functions.php';
 
 
 // upon activation this creates all the needed pages

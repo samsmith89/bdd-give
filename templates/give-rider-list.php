@@ -15,6 +15,7 @@ function give_rider_list_function($atts)
         'post_type'      => 'give_forms',
         'posts_per_page' => 20,
         'paged'          => $paged,
+        'order'          => 'ASC',
         'meta_query' => array(
             array(
                 'key' => 'is_rider',
