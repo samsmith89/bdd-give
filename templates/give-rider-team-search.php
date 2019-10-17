@@ -1,6 +1,12 @@
 <?php
 
-function give_rider_list_function($atts)
+/**
+ *
+ * Shortcode that outputs the Team List Search if needed
+ *
+ */
+
+function give_team_list_function($atts)
 {
 
     /**
@@ -85,4 +91,4 @@ function give_rider_list_function($atts)
 
 <?php
 }
-add_shortcode('give_rider_search', 'give_rider_list_function');
+add_shortcode('give_team_search', 'give_team_list_function');

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *
+ * Shortcode that outputs the Rider List Search
+ *
+ */
+
 function give_rider_search_function($text)
 {
     if ($_GET['search_text'] && !empty($_GET['search_text'])) {
@@ -29,19 +35,16 @@ function give_rider_search_function($text)
     $wp_query = new WP_Query($args);
     if ($wp_query->have_posts()) : ob_start();
         ?>
+        <!-- The search form -->
         <form action="/leaderboard-search/" method="get">
             <input type="text" name="search_text">
-            <label>Type:</label>
-            <select name="type">
-                <option value="">Any</option>
-                <option value="post">Posts</option>
-                <option value="movies">Movies</option>
-                <option value="books">Books</option>
-            </select>
             <button type="submit" name="">Search</button>
         </form>
 
+        <!-- Return to the Rider list ***MUST UPDATE ON LIVE SITE*** -->
         <a href="/riderlist-shortcode/">Clear Search Results</a>
+
+        <!-- start of the table -->
         <table>
             <th>Rider</th>
             <th>Goal</th>
@@ -51,16 +54,11 @@ function give_rider_search_function($text)
             <?php
                     while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
 
-
+                <!-- start of the row -->
                 <tr class="<?php post_class(); ?>">
 
+                    <!-- Rider Name -->
                     <td class="give-form-title"><?php echo get_the_title(); ?></td>
-
-                    <?php //you can output the content or excerpt here
-                                ?>
-
-
-
                     <?php
                                 if (class_exists('Give')) {
                                     //Output the goal (if enabled)
@@ -70,8 +68,11 @@ function give_rider_search_function($text)
                                     $team_name   = get_field('team_name');
                                 }
                                 ?>
+                    <!-- Rider Goal -->
                     <td class="give-form-team"><?php echo $goal_amount; ?></td>
+                    <!-- Rider Goal Income-->
                     <td class="give-form-team"><?php echo $goal_income; ?></td>
+                    <!-- Team associated with the rider and Team Link -->
                     <td class="give-form-team"><?php if (!empty($team_name)) {
                                                                 //team exists
                                                                 $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
@@ -80,7 +81,7 @@ function give_rider_search_function($text)
                                                                 //team does not exist
                                                             } ?></td>
 
-
+                    <!-- Link to donate to Rider -->
                     <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
                 </tr>
 
@@ -90,9 +91,9 @@ function give_rider_search_function($text)
                     ?>
         </table>
     <?php else :
-            //If you don't have donation forms that fit this query
+            //If you don't have donation forms that fit the search
             ?>
-
+        <!-- Return to the Rider list ***MUST UPDATE ON LIVE SITE*** -->
         <h2>Sorry, no donation forms found.</h2>
         <a href="/riderlist-shortcode/">Let's try again</a>
 

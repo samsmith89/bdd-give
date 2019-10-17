@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *
+ * Shortcode that outputs the Rider List
+ *
+ */
+
 function give_rider_list_function($atts)
 {
     $atts = shortcode_atts(array(
@@ -26,18 +32,13 @@ function give_rider_list_function($atts)
     $wp_query = new WP_Query($args);
     if ($wp_query->have_posts()) : ob_start();
         ?>
+        <!-- The search form -->
         <form action="/leaderboard-search/" method="get">
             <input type="text" name="search_text">
-            <label>Type:</label>
-            <select name="type">
-                <option value="">Any</option>
-                <option value="post">Posts</option>
-                <option value="movies">Movies</option>
-                <option value="books">Books</option>
-            </select>
             <button type="submit" name="">Search</button>
         </form>
 
+        <!-- start of the table -->
         <table>
             <th>Rider</th>
             <th>Goal</th>
@@ -47,16 +48,10 @@ function give_rider_list_function($atts)
             <?php
                     while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
 
-
+                <!-- start of the row -->
                 <tr class="<?php post_class(); ?>">
-
+                    <!-- Rider Name -->
                     <td class="give-form-title"><?php echo get_the_title(); ?></td>
-
-                    <?php //you can output the content or excerpt here
-                                ?>
-
-
-
                     <?php
                                 if (class_exists('Give')) {
                                     //Output the goal (if enabled)
@@ -66,8 +61,11 @@ function give_rider_list_function($atts)
                                     $team_name   = get_field('team_name');
                                 }
                                 ?>
+                    <!-- Rider Goal -->
                     <td class="give-form-team"><?php echo $goal_amount; ?></td>
+                    <!-- Rider Goal Income -->
                     <td class="give-form-team"><?php echo $goal_income; ?></td>
+                    <!-- Team associated with the rider and Team Link -->
                     <td class="give-form-team"><?php if (!empty($team_name)) {
                                                                 //team exists
                                                                 $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
@@ -76,7 +74,7 @@ function give_rider_list_function($atts)
                                                                 //team does not exist
                                                             } ?></td>
 
-
+                    <!-- Link to donate to Rider -->
                     <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
                 </tr>
 

@@ -6,7 +6,7 @@ function top_give_rider_forms_function($atts)
         'limit' => 10,
         'order' => 'DESC',
         'decimals' => false
-    ), $atts, 'top_give_forms');
+    ), $atts, 'top_give_rider_forms');
     $args = array(
         'post_type'         => 'give_forms',
         'posts_per_page'    => $atts['limit'],
@@ -28,6 +28,7 @@ function top_give_rider_forms_function($atts)
         <div class="top-donation-forms-list">
 
             <h3>Top Performing Riders</h3>
+            <!-- start of the table -->
             <table>
                 <th>Team</th>
                 <th>Goal</th>
@@ -37,16 +38,10 @@ function top_give_rider_forms_function($atts)
                 <?php
                         while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
 
-
+                    <!-- start of the row -->
                     <tr class="<?php post_class(); ?>">
-
+                        <!-- Rider Name -->
                         <td class="give-form-title"><?php echo get_the_title(); ?></td>
-
-                        <?php //you can output the content or excerpt here
-                                    ?>
-
-
-
                         <?php
                                     if (class_exists('Give')) {
                                         //Output the goal (if enabled)
@@ -57,8 +52,11 @@ function top_give_rider_forms_function($atts)
                                         $team_name = get_field("team_name");
                                     }
                                     ?>
-                        <td class="give-form-team"><?php echo $goal_amount; ?></td>
-                        <td class="give-form-team"><?php echo $goal_income; ?></td>
+                        <!-- Rider Goal -->
+                        <td class="give-form-team">$<?php echo round($goal_amount); ?></td>
+                        <!-- Rider Donation Form Income -->
+                        <td class="give-form-team">$<?php echo $goal_income; ?></td>
+                        <!-- Team associated with the rider and Team Link -->
                         <td class="give-form-team"><?php if (!empty($team_name)) {
                                                                     //team exists
                                                                     $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
@@ -67,7 +65,7 @@ function top_give_rider_forms_function($atts)
                                                                     //team does not exist
                                                                 } ?></td>
 
-
+                        <!-- Link to doante to Rider -->
                         <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
                     </tr>
 
