@@ -14,7 +14,7 @@ function top_give_team_forms_function($atts)
         'decimals' => false
     ), $atts, 'top_give_forms');
     $args = array(
-        'post_type'         => 'give_forms',
+        'post_type'         => 'team',
         'posts_per_page'    => $atts['limit'],
         'meta_key'          => 'team_goal',
         'orderby'           => 'meta_value_num',

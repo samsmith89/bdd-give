@@ -56,3 +56,22 @@ function update_team_goal_meta()
     $team_goal_final = array_sum($team_goal);
     update_field('team_goal', $team_goal_final);
 }
+
+function give_team_tabs()
+{
+    ?>
+
+    <script>
+        function openList(tableName) {
+            var i;
+            var x = document.getElementsByClassName("give_table");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(tableName).style.display = "block";
+        }
+    </script>
+
+<?php
+}
+add_action('wp_footer', 'give_team_tabs');

@@ -62,9 +62,9 @@ function give_rider_list_function($atts)
                                 }
                                 ?>
                     <!-- Rider Goal -->
-                    <td class="give-form-team"><?php echo $goal_amount; ?></td>
-                    <!-- Rider Goal Income -->
-                    <td class="give-form-team"><?php echo $goal_income; ?></td>
+                    <td class="give-form-team">$<?php echo round($goal_amount); ?></td>
+                    <!-- Rider Donation Form -->
+                    <td class="give-form-team">$<?php echo $goal_income; ?></td>
                     <!-- Team associated with the rider and Team Link -->
                     <td class="give-form-team"><?php if (!empty($team_name)) {
                                                                 //team exists
