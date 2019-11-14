@@ -75,3 +75,61 @@ function give_team_tabs()
 <?php
 }
 add_action('wp_footer', 'give_team_tabs');
+
+
+function update_give_levels($post_id)
+{
+    update_post_meta($post_id, '_give_donation_levels', array(
+        0 =>
+        array(
+            '_give_id' =>
+            array(
+                'level_id' => '0',
+            ),
+            '_give_amount' => '1.000000',
+            '_give_text' => '',
+            '_give_default' => 'default',
+        ),
+        1 =>
+        array(
+            '_give_id' =>
+            array(
+                'level_id' => '1',
+            ),
+            '_give_amount' => '2.000000',
+            '_give_text' => '',
+        ),
+        2 =>
+        array(
+            '_give_id' =>
+            array(
+                'level_id' => '2',
+            ),
+            '_give_amount' => '3.000000',
+            '_give_text' => '',
+        ),
+    ));
+}
+
+add_action('save_post_give_forms', 'update_give_levels', 100, 1);
+
+// add_action('save_post_product', 'save_post_callback');
+
+// function save_post_callback($post_id)
+
+// {
+
+//     // Save custom post type details
+
+//     $old = get_post_meta($post_id, 'shipment_price', true);
+
+//     $new = $_POST['shipment_price'];
+
+//     if ($new && $new != $old) {
+
+//         update_post_meta($post_id, 'shipment_price', $new);
+//     } elseif (” == $new && $old) {
+
+//         delete_post_meta($post_id, 'shipment_price', $old);
+//     }
+// }
