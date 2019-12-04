@@ -13,7 +13,7 @@ function is_give_rider_team()
     if ($is_rider == true) {
         $team_name = get_field('team_name');
         //team exists
-        $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
+        $team_form_post = get_page_by_title($team_name, OBJECT, 'team');
         printf('<p>Team Name:<br><a href="%1$s">%2$s</a></p>', get_permalink($team_form_post), $team_name);
     } else { }
 }
@@ -57,26 +57,11 @@ function update_team_goal_meta()
     update_field('team_goal', $team_goal_final);
 }
 
-function give_team_tabs()
-{
-    ?>
-
-    <script>
-        function openList(tableName) {
-            var i;
-            var x = document.getElementsByClassName("give_table");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(tableName).style.display = "block";
-        }
-    </script>
-
-<?php
-}
-add_action('wp_footer', 'give_team_tabs');
-
-
+/**
+ *
+ * Function for adding donation levels
+ *
+ */
 function update_give_levels($post_id)
 {
     update_post_meta($post_id, '_give_donation_levels', array(
@@ -113,23 +98,22 @@ function update_give_levels($post_id)
 
 add_action('save_post_give_forms', 'update_give_levels', 100, 1);
 
-// add_action('save_post_product', 'save_post_callback');
 
-// function save_post_callback($post_id)
+function give_team_tabs()
+{
+    ?>
 
-// {
+    <script>
+        function openList(tableName) {
+            var i;
+            var x = document.getElementsByClassName("give_table");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(tableName).style.display = "block";
+        }
+    </script>
 
-//     // Save custom post type details
-
-//     $old = get_post_meta($post_id, 'shipment_price', true);
-
-//     $new = $_POST['shipment_price'];
-
-//     if ($new && $new != $old) {
-
-//         update_post_meta($post_id, 'shipment_price', $new);
-//     } elseif (” == $new && $old) {
-
-//         delete_post_meta($post_id, 'shipment_price', $old);
-//     }
-// }
+<?php
+}
+add_action('wp_footer', 'give_team_tabs');

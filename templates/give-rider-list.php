@@ -68,7 +68,7 @@ function give_rider_list_function($atts)
                     <!-- Team associated with the rider and Team Link -->
                     <td class="give-form-team"><?php if (!empty($team_name)) {
                                                                 //team exists
-                                                                $team_form_post = get_page_by_title($team_name, OBJECT, 'give_forms');
+                                                                $team_form_post = get_page_by_title($team_name, OBJECT, 'team');
                                                                 printf('<a href="%1$s">%2$s</a>', get_permalink($team_form_post), $team_name);
                                                             } else {
                                                                 //team does not exist

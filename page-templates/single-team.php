@@ -208,7 +208,7 @@ get_header(); ?>
                                                         $give_goal_id_one = $give_goal_ids[0];
                                                         $give_goal_id_two = $give_goal_ids[1];
                                                         ?>
-                                                        <div class="js-give-team-totals" style="display: none;"><?php echo do_shortcode('[give_totals ids="' . $give_goal_id_one . ', ' . $give_goal_id_two . '" total_goal="$10,000" message="Hey! We\'ve raised {total} of the {total_goal} we are trying to raise for this campaign!" link="/go-here/" link_text="Donate!" progress_bar="true"]');?></div>
+                                        <div class="js-give-team-totals" style="display: none;"><?php echo do_shortcode('[give_totals ids="' . $give_goal_id_one . ', ' . $give_goal_id_two . '" total_goal="$10,000" message="Hey! We\'ve raised {total} of the {total_goal} we are trying to raise for this campaign!" link="/go-here/" link_text="Donate!" progress_bar="true"]'); ?></div>
 
                                     <?php else :
                                                     //If you don't have team donation forms that fit this query
