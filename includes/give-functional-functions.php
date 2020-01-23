@@ -15,7 +15,8 @@ function is_give_rider_team()
         //team exists
         $team_form_post = get_page_by_title($team_name, OBJECT, 'team');
         printf('<p>Team Name:<br><a href="%1$s">%2$s</a></p>', get_permalink($team_form_post), $team_name);
-    } else { }
+    } else {
+    }
 }
 
 /**
@@ -71,7 +72,7 @@ function update_give_levels($post_id)
             array(
                 'level_id' => '0',
             ),
-            '_give_amount' => '1.000000',
+            '_give_amount' => '18.000000',
             '_give_text' => '',
             '_give_default' => 'default',
         ),
@@ -81,7 +82,7 @@ function update_give_levels($post_id)
             array(
                 'level_id' => '1',
             ),
-            '_give_amount' => '2.000000',
+            '_give_amount' => '36.000000',
             '_give_text' => '',
         ),
         2 =>
@@ -90,7 +91,25 @@ function update_give_levels($post_id)
             array(
                 'level_id' => '2',
             ),
-            '_give_amount' => '3.000000',
+            '_give_amount' => '50.000000',
+            '_give_text' => '',
+        ),
+        3 =>
+        array(
+            '_give_id' =>
+            array(
+                'level_id' => '2',
+            ),
+            '_give_amount' => '250.000000',
+            '_give_text' => '',
+        ),
+        4 =>
+        array(
+            '_give_id' =>
+            array(
+                'level_id' => '2',
+            ),
+            '_give_amount' => '500.000000',
             '_give_text' => '',
         ),
     ));
@@ -101,7 +120,7 @@ add_action('save_post_give_forms', 'update_give_levels', 100, 1);
 
 function give_team_tabs()
 {
-    ?>
+?>
 
     <script>
         function openList(tableName) {
