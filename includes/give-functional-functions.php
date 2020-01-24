@@ -56,6 +56,22 @@ function update_team_goal_meta()
 
     $team_goal_final = array_sum($team_goal);
     update_field('team_goal', $team_goal_final);
+
+    // $args = array(
+    //     'post_type'         => 'team',
+    //     'posts_per_page'    => -1,
+    //     'meta_query' => array(
+    //         'key'     => 'team_name',
+    //         'value'   => $team_name,
+    //     )
+    // );
+    // $querytwo = new WP_Query($args);
+    // while ($querytwo->have_posts()) : $querytwo->the_post();
+    //     //do something
+    //     update_field('team_goal', $team_goal_final);
+
+    // endwhile;
+    // wp_reset_postdata();
 }
 
 /**
