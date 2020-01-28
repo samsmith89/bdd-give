@@ -50,10 +50,42 @@ function top_give_team_forms_function($atts)
                         <!-- Team Goal -->
                         <td class="give-form-team">$10,000</td>
                         <!-- Team Income -->
-                        <td class="give-form-team">$<?php echo get_field("team_goal"); ?>
+                        <td class="give-form-team">$<?php
+
+                            $team_name   = get_field('team_name');
+                            $args = array(
+                                'post_type'         => 'give_forms',
+                                'posts_per_page'    => 3,
+                                'meta_query' => array(
+                                    array(
+                                        'key'     => 'team_name',
+                                        'value'   => $team_name,
+                                    ),
+                                    array(
+                                        'key'     => 'has_team',
+                                        'value'   => true,
+                                    )
+                                )
+                            );
+                            $id = get_the_ID();
+                            $team_goal = array('');
+                            $queryTwo = new WP_Query($args);
+                            while ($queryTwo->have_posts()) : $queryTwo->the_post();
+                                //do something
+                                $id = get_the_ID();
+                                $earning = give_get_meta($id, '_give_form_earnings', true);
+                                array_push($team_goal, $earning);
+
+                            endwhile;
+
+                            $team_goal_final = array_sum($team_goal);
+                            echo $team_goal_final;
+                            wp_reset_postdata();
+
+                         ?>
                         </td>
                         <!-- Team donation form link -->
-                        <td><a href="<?php echo get_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
+                        <td><a href="<?php echo the_permalink(); ?>" class="readmore give-donation-form-link"><?php _e('Donate Now', 'give'); ?> &raquo;</a></td>
                     </tr>
                 <?php
                         endwhile;
